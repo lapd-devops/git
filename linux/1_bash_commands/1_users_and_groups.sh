@@ -5,7 +5,10 @@ cat file.txt| chpasswd
 echo "Password123" | passwd root --stdin > /dev/null #не везде сработает
 #generate password
 head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '' #generate random pass
-
+#change pass in one line command ( only by root)
+echo "passssssword" | passwd root --stdin > /dev/null
+#or
+echo root:passssssword | chpasswd
 
 #useradd
 #create system user
