@@ -136,3 +136,5 @@ systemctl status libvirtd -l
 # can see it using the virsh list command.
 
 
+#discover all IPs with Vm-hostnames
+for i in $(for i in $(virsh list|tail -n+3|awk '{print $2}'); do virsh domifaddr $i|grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'; done); do echo $i; ssh den@$i 'hostname'; done
