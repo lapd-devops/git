@@ -19,9 +19,8 @@ sudo dd if=/dev/zero of=/dev/sdc bs=1M && sync
 
 #change pass in one line command ( only by root)
 echo "passssssword" | passwd root --stdin > /dev/null
-
+#or
 echo root:passssssword | chpasswd
-
 
 #ping последовательно диапазона адресов
 for ((i=120; i <= 130; i++)) do ping -c 1 192.168.43.$i; done
@@ -41,4 +40,11 @@ find /etc/ -type f -exec sed -i 's/10.8.181.95*/10.5.10.149/g' {} + 2> /dev/null
 
 #clear deleted files
 for i in $(find /proc/*/fd -ls | grep  '(deleted)' | awk '{print $11}'); do "echo ''> $i"; done
+
+#one-liner command to get certs(nginx must be on, certbot place file to check in "webroot-path")
+#centos
+certbot certonly --agree-tos --email blabla@mail.com --webroot --webroot-path /usr/share/nginx/html -n -d krasnosvar.devops.rebrain.srwx.net
+#ubuntu
+certbot certonly --agree-tos --email blabla@mail.com --webroot --webroot-path /var/www/html -n -d krasnosvar.devops.rebrain.srwx.net
+#certs will be in: /etc/letsencrypt/live/
 
