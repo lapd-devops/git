@@ -17,3 +17,5 @@ for i in $(oc get pod -n openshift-authentication| awk '{print $1}'); do oc logs
 
 
 ldapsearch -h dc1 -D "CN=Administrator,CN=Users,DC=test,DC=local" -b "DC=test,DC=local" -W -s sub "(cn=Guest)"
+
+

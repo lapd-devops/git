@@ -16,7 +16,7 @@ firewall-cmd --add-port=5000/cp --zone=internal --permanent
 firewall-cmd --add-port=5000/tcp --zone=public   --permanent
 firewall-cmd --reload
 podman run --name mirror-registry -p 5000:5000 -v /opt/registry/data:/var/lib/registry:z -v /opt/registry/auth:/auth:z -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -v /opt/registry/certs:/certs:z -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/v00opshift08tst.ocp4.corp.domain.ru.cer -e REGISTRY_HTTP_TLS_KEY=/certs/v00opshift08tst.ocp4.corp.domain.ru.key -e REGISTRY_COMPATIBILITY_SCHEMA1_ENABLED=true -d docker.io/library/registry:2
-curl -u admin:admin -k https://v00opshift08tst.ocp4.corp.tander.ru:5000/v2/_catalog
+curl -u admin:admin -k https://v00opshift08tst.ocp4.corp.domain.ru:5000/v2/_catalog
 
 podman ps
 podman rm --all --force
@@ -26,12 +26,13 @@ YWRtaW46YWRtaW4=
 
 jq '.auths += {"v00opshift08tst.ocp4.corp.domain.ru:5000": {"auth": "YWRtaW46YWRtaW4=","email": "notme@localhost"}}' < pull-secret.txt > pull2.txt
 
-export OCP_RELEASE="4.4.3-x86_64" 
+export OCP_RELEASE="4.5.5" 
 export LOCAL_REGISTRY='v00opshift08tst.ocp4.corp.domain.ru:5000' 
-export LOCAL_REPOSITORY='ocp4/openshift4' 
+export LOCAL_REPOSITORY='ocp455/openshift' 
 export PRODUCT_REPO='openshift-release-dev' 
 export LOCAL_SECRET_JSON='/root/pull2.txt' 
 export RELEASE_NAME="ocp-release"
+export ARCHITECTURE="x86_64"
 
 #проверка переменных
 echo $OCP_RELEASE 
@@ -40,10 +41,15 @@ echo $LOCAL_REPOSITORY
 echo $PRODUCT_REPO
 echo $LOCAL_SECRET_JSON
 echo $RELEASE_NAME
+echo $ARCHITECTURE
 
-oc adm -a ${LOCAL_SECRET_JSON} release mirror --from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE} --to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} --to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}
-oc adm -a /root/pull-isolated.txt release mirror --from=quay.io/openshift-release-dev/ocp-release:4.4.3-x86_64 --to=help1.test.local:5000/ocp443-mirror --to-release-image=help1.test.local:5000/ocp443-mirror:4.4.3-x86_64
-oc adm -a ${LOCAL_SECRET_JSON} release extract --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}"
+oc adm -a ${LOCAL_SECRET_JSON} release mirror \
+--from=quay.io/${PRODUCT_REPO}/${RELEASE_NAME}:${OCP_RELEASE}-${ARCHITECTURE} \
+--to=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY} \
+--to-release-image=${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE} 
+
+
+oc adm -a ${LOCAL_SECRET_JSON} release extract --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE}"
 
 #вывод по окончании установки локального регистри для конфига install-config.yml
 imageContentSources:
@@ -59,5 +65,5 @@ imageContentSources:
 
 
 #хз что за команды, просто записал
-skopeo inspect docker://v00opshift08tst.corp.tander.ru:5000/rhscl/python-36-rhel7
-oc image mirror registry.redhat.io/rhscl/ruby-25-rhel7:latest v00opshift08tst.ocp4.corp.tander.ru:5000/rhscl/ruby-25-rhel7:latest
+skopeo inspect docker://v00opshift08tst.corp.domain.ru:5000/rhscl/python-36-rhel7
+oc image mirror registry.redhat.io/rhscl/ruby-25-rhel7:latest v00opshift08tst.ocp4.corp.domain.ru:5000/rhscl/ruby-25-rhel7:latest
