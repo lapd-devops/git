@@ -36,5 +36,5 @@ for i in $(oc get pod -n openshift-authentication| awk '{print $1}'); do oc logs
 
 #make kras cluster-admin(as kubeadmin)
 oc get users 
- 3971  08.06.20 12:04:31 oc adm policy add-cluster-role-to-user cluster-admin krasnosvarov_dn
+oc adm policy add-cluster-role-to-user cluster-admin krasnosvarov_dn
 

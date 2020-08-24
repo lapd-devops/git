@@ -28,7 +28,7 @@ domains = domain.ru
 config_file_version = 2
 services = nss, pam
 
-[domain/corp.tander.ru]
+[domain/corp.domain.ru]
 ad_server = v00adtest1.domain.ru
 ad_domain = domain.ru
 krb5_realm = DOMAIN.RU
@@ -49,7 +49,7 @@ access_provider = ad
 ad_access_filter = (&(memberOf=CN=nix_adm,OU=Groups,OU=gk,DC=domain,DC=ru)(unixHomeDirectory=*))
 
 #пример фильтра для разрешения подключения двух групп ```nix_adm``` и ```ora_adm```
-#ad_access_filter = (|(memberOf=CN=nix_adm,OU=Groups,OU=gk,DC=domain,DC=ru)(unixHomeDirectory=*)(CN=ORA_ADM,OU=Groups,OU=gk,DC=corp,DC=tander,DC=ru))
+#ad_access_filter = (|(memberOf=CN=nix_adm,OU=Groups,OU=gk,DC=domain,DC=ru)(unixHomeDirectory=*)(CN=ORA_ADM,OU=Groups,OU=gk,DC=corp,DC=domain,DC=ru))
 
 #пример фильтра для добавления отдельного пользователя
 #ad_access_filter = (&(memberOf=CN=nix_adm,OU=Groups,OU=gk,DC=domain,DC=ru)(sAMAccountName=krasnosvarov_dn))
