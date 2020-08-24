@@ -59,3 +59,6 @@ https://www.shellhacks.com/ru/regex-find-email-addresses-file-grep/
 terraform refresh | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
 #find "value" in all terraform files recursively(from searchin dir)
 grep value $(find  . -name *.tf)
+
+#search "gitlab" only in files with *.tf or *.sh extenssion
+grep -ri "gitlab" --include \*.{tf,sh} /home/den/git_projects/terraform_scripts/
