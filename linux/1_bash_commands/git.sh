@@ -147,6 +147,10 @@ git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch linux/serv
 #error: RPC failed; curl 56 GnuTLS recv error (-110): The TLS connection was non-properly terminated.
 #git clone https://github.com/theforeman/foreman-ansible-modules.git
 git clone  --depth=1 https://github.com/theforeman/foreman-ansible-modules.git
+#fatal: refusing to merge unrelated histories
+git pull origin master --allow-unrelated-histories
+
+
 
 #PROXY
 #https://stackoverflow.com/questions/24907140/git-returns-http-error-407-from-proxy-after-connect
