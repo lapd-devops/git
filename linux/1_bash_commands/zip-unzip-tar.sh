@@ -36,3 +36,7 @@ tar -C /home/krasnosvarov_dn/tst2/ -xvf /home/krasnosvarov_dn/tst/whs-gw-uzdo.zi
 tar -cvzf $(hostname)-$(date -I).tar.gz /etc/sysconfig/whs-gw-uzdo.env /etc/systemd/system/whs-gw-uzdo.service /opt/whs-gw-uzdo
 
 tar -cvzf $(hostname)-$(date -I).tar.gz /var/www/html/graphic-prod.domain.ru/ --exclude /var/www/html/graphic-prod.domain.ru/static/reports --exclude /var/www/html/graphic-prod.domain.ru/oradiag_ap_graphic
+
+
+#unzip file from URL
+file=consul_1.8.3_linux_amd64.zip;  curl -O https://releases.hashicorp.com/consul/1.8.3/$file && unzip $file && rm -rf $file
