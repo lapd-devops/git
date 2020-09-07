@@ -23,11 +23,14 @@ unzip unsplit.zip
 tar -cvf archive.tar file-to-be-archive
 #extract tar
 tar -xvf archive.tar
+#extract tar.gz
+tar -xvzf archive.tar.gz
 #add file to archive
 tar -rvf archive.tar file-to-add
 #list files in archive
 tar -tvf archive.tar
-
+#untar tar.xz
+tar -xpJf archive.tar.xz
 
 #untar in specific folder /home/krasnosvarov_dn/tst2/ 
 tar -C /home/krasnosvarov_dn/tst2/ -xvf /home/krasnosvarov_dn/tst/whs-gw-uzdo.zip --strip-components 1

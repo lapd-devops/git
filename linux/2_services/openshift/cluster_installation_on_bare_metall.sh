@@ -26,6 +26,7 @@ cp *.ign /var/www/html/ignition/
 restorecon -vR /var/www/html/ 
 chmod o+r /var/www/html/ignition/*.ign
 
+#теперь в Vcenter влючить ВМки с затертым boot-sector
 #проверка состояния сборки через bootstrap
 ssh -i StrictHostKeyChecking=no core@v00opshift01tst-bootstrap 'journalctl -b -f -u bootkube.service'
 #более подробный вывод

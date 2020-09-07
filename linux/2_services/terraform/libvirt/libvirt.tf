@@ -1,3 +1,13 @@
+terraform {
+ required_version = ">= 0.13"
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.6.2"
+    }
+  }
+}
+
 # variables that can be overriden
 variable "hostname" {
   type    = list(string)
@@ -23,7 +33,7 @@ resource "libvirt_volume" "os_image" {
   pool = "default"
   #source = "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-disk-kvm.img"
   #source = "https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2"
-  source = "images/focal-server-cloudimg-amd64-disk-kvm.img" #
+  source = "/home/den/git_projects/images/focal-server-cloudimg-amd64-disk-kvm.img" #
   format = "qcow2"
 }
 
