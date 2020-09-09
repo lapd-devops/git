@@ -3,9 +3,9 @@ oc registry login --to /root/pull2.txt --registry "v00opshift08tst.ocp4.corp.dom
 
 
 
-export OCP_RELEASE="4.5.4" 
+export OCP_RELEASE="4.5.6" 
 export LOCAL_REGISTRY='v00opshift08tst.ocp4.corp.domain.ru:5000' 
-export LOCAL_REPOSITORY='ocp454/openshift' 
+export LOCAL_REPOSITORY='ocp456/openshift' 
 export PRODUCT_REPO='openshift-release-dev' 
 export LOCAL_SECRET_JSON='/root/pull2.txt' 
 export RELEASE_NAME="ocp-release"

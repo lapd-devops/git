@@ -26,9 +26,9 @@ YWRtaW46YWRtaW4=
 
 jq '.auths += {"v00opshift08tst.ocp4.corp.domain.ru:5000": {"auth": "YWRtaW46YWRtaW4=","email": "notme@localhost"}}' < pull-secret.txt > pull2.txt
 
-export OCP_RELEASE="4.5.5" 
-export LOCAL_REGISTRY='v00opshift08tst.ocp4.corp.domain.ru:5000' 
-export LOCAL_REPOSITORY='ocp455/openshift' 
+export OCP_RELEASE="4.5.4" 
+export LOCAL_REGISTRY='v00opshift08tst.ocp4.corp.tander.ru:5000' 
+export LOCAL_REPOSITORY='ocp454/openshift' 
 export PRODUCT_REPO='openshift-release-dev' 
 export LOCAL_SECRET_JSON='/root/pull2.txt' 
 export RELEASE_NAME="ocp-release"

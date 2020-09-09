@@ -4,6 +4,25 @@ git clone https://github.com/RedHatOfficial/ocp4-helpernode.git
 
 #3. fill in install-config.yaml
 
+#4.fetch proper openshift-install
+export OCP_RELEASE="4.5.5" 
+export LOCAL_REGISTRY='v00opshift08tst.ocp4.corp.tander.ru:5000' 
+export LOCAL_REPOSITORY='ocp455/openshift' 
+export PRODUCT_REPO='openshift-release-dev' 
+export LOCAL_SECRET_JSON='/root/pull2.txt' 
+export RELEASE_NAME="ocp-release"
+export ARCHITECTURE="x86_64"
+#проверка переменных
+echo $OCP_RELEASE 
+echo $LOCAL_REGISTRY 
+echo $LOCAL_REPOSITORY
+echo $PRODUCT_REPO
+echo $LOCAL_SECRET_JSON
+echo $RELEASE_NAME
+echo $ARCHITECTURE
+#
+oc adm -a ${LOCAL_SECRET_JSON} release extract --command=openshift-install "${LOCAL_REGISTRY}/${LOCAL_REPOSITORY}:${OCP_RELEASE}-${ARCHITECTURE}"
+
 #чтобы не пересоздавать по новой диски в vmware, команда для затирки boot-сектора, после нее рестарт ВМ и она по новой начнет инсталлиться через PXE
 ssh -i /root/.ssh/id_rsa core@v00opshift01tst-bootstrap 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
 ssh -i /root/.ssh/id_rsa core@v00opshift02tst-master0 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
@@ -11,7 +30,7 @@ ssh -i /root/.ssh/id_rsa core@v00opshift03tst-master1 'sudo dd if=/dev/zero of=/
 ssh -i /root/.ssh/id_rsa core@v00opshift04tst-master2 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
 ssh -i /root/.ssh/id_rsa core@v00opshift05tst-worker0 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
 ssh -i /root/.ssh/id_rsa core@v00opshift06tst-worker1 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
-ssh -i /root/.ssh/id_rsa core@v00opshift06tst-worker2 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
+ssh -i /root/.ssh/id_rsa core@v00opshift07tst-worker2.ocp4.corp.tander.ru 'sudo dd if=/dev/zero of=/dev/sda bs=1M count=100'
 
 
 
